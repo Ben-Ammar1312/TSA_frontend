@@ -1,1 +1,141 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --color-bg: 242 242 247;
+  --color-surface: 255 255 255;
+  --color-surface-muted: 245 246 248;
+  --color-border: 206 212 218;
+  --color-text: 33 37 41;
+  --color-primary: 58 99 216;
+  --color-primary-foreground: 255 255 255;
+  --color-accent: 72 201 176;
+  --color-danger: 231 76 60;
+  --color-warning: 247 220 111;
+  --color-success: 33 150 83;
+  --shadow-card: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+:root[data-variant="1"] {
+  --color-bg: 245 245 245;
+  --color-surface: 255 255 255;
+  --color-surface-muted: 235 235 235;
+  --color-border: 215 215 215;
+  --color-primary: 20 20 20;
+  --color-accent: 128 128 128;
+  --shadow-card: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+:root[data-variant="2"] {
+  --color-bg: 9 14 22;
+  --color-surface: 17 25 40;
+  --color-surface-muted: 28 37 57;
+  --color-border: 51 65 85;
+  --color-text: 226 232 240;
+  --color-primary: 14 165 233;
+  --color-accent: 249 115 22;
+  --shadow-card: 0 18px 40px rgba(15, 23, 42, 0.4);
+  color-scheme: dark;
+}
+
+:root[data-variant="3"] {
+  --color-bg: 246 250 255;
+  --color-surface: 255 255 255;
+  --color-surface-muted: 230 244 255;
+  --color-border: 186 210 235;
+  --color-primary: 59 130 246;
+  --color-accent: 37 99 235;
+  --shadow-card: 0 12px 28px rgba(37, 99, 235, 0.22);
+}
+
+:root[data-variant="4"] {
+  --color-bg: 253 252 244;
+  --color-surface: 255 255 255;
+  --color-surface-muted: 251 236 196;
+  --color-border: 244 211 94;
+  --color-primary: 239 68 68;
+  --color-accent: 249 115 22;
+  --shadow-card: 0 12px 28px rgba(239, 68, 68, 0.18);
+}
+
+@layer base {
+  *, *::before, *::after {
+    @apply box-border;
+  }
+
+  body {
+    @apply min-h-screen bg-[rgb(var(--color-bg))] text-[rgb(var(--color-text))] font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold text-[rgb(var(--color-text))];
+  }
+
+  a {
+    @apply text-[rgb(var(--color-primary))];
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-[rgb(var(--color-surface))] rounded-xl shadow-[var(--shadow-card)] p-6 border border-[rgb(var(--color-border))];
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium bg-[rgb(var(--color-surface-muted))] text-[rgb(var(--color-text))];
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center rounded-lg border border-transparent bg-[rgb(var(--color-primary))] px-4 py-2 text-sm font-semibold text-[rgb(var(--color-primary-foreground,255 255 255))] shadow transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[rgb(var(--color-primary))];
+  }
+
+  .btn-secondary {
+    @apply bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-border))] text-[rgb(var(--color-text))] hover:bg-[rgb(var(--color-surface-muted))];
+  }
+
+  .badge-success {
+    @apply bg-[rgb(var(--color-success))] text-white;
+  }
+
+  .badge-danger {
+    @apply bg-[rgb(var(--color-danger))] text-white;
+  }
+
+  .badge-warning {
+    @apply bg-[rgb(var(--color-warning))] text-black;
+  }
+
+  table.data-table {
+    @apply w-full border-separate border-spacing-y-2;
+  }
+
+  table.data-table thead {
+    @apply sticky top-0 bg-[rgb(var(--color-surface))] z-10;
+  }
+
+  table.data-table th {
+    @apply text-left text-xs font-semibold uppercase tracking-wider text-[rgb(var(--color-text))] pb-2 border-b border-[rgb(var(--color-border))];
+  }
+
+  table.data-table td {
+    @apply align-top text-sm py-3 border-b border-[rgb(var(--color-border))];
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.6);
+    border-radius: 9999px;
+  }
+}

@@ -1,59 +1,61 @@
-# AngularStandalone
+# Admissions Équivalences – Admin Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.5.
+Application Angular 17+ (standalone components, TailwindCSS design tokens) permettant de piloter la revue des candidats et la validation des mappings matières. Quatre variantes visuelles sont fournies et activables via `?variant=1|2|3|4` ou depuis le sélecteur UI.
 
-## Development server
-
-To start a local development server, run:
+## 🚀 Démarrage rapide
 
 ```bash
-ng serve
+npm install
+npm run start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Développement : `http://localhost:4200`
+- Build production : `npm run build`
+- Lint (Angular CLI) : `npm run lint`
 
-## Code scaffolding
+## 🧱 Structure principale
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- `src/app/core` – services mock (BehaviorSubject), thèmes, calcul des scores.
+- `src/app/features` – pages lazy-loaded : dashboard, candidats, revue mapping, catalogue, suggestions LLM, paramètres, audit.
+- `src/app/shared` – composants UI réutilisables (bouton, input, badge, table, toasts, dialog, shell).
 
-```bash
-ng generate component component-name
-```
+## 🎨 Variantes (query param `variant` + menu en haut à droite)
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+| Variante | Description rapide |
+| --- | --- |
+| 1 – Minimal | Palette neutre, cartes épurées. |
+| 2 – Data-dense | Nav rail gauche + inspecteur latéral, tables compactes. |
+| 3 – Split-pane | Revue mapping double panneau avec séparateur draggable. |
+| 4 – Board | Candidats en kanban, suggestions en tuiles "quick approve". |
 
-```bash
-ng generate --help
-```
+La variante choisie est persistée (localStorage) et applique des tokens Tailwind (CSS variables) sur `:root[data-variant="n"]`.
 
-## Building
+## ✨ Fonctionnalités clefs
 
-To build the project run:
+- **Tableau de bord** : KPI, tâches ouvertes, fil d’activité, jobs 24h.
+- **Candidats** : filtres, recherche, pagination, export CSV, board par statut (Var 4).
+- **Fiche candidat** : profil, aperçu documents (PDF/JPEG), matières normalisées, accès direct revue.
+- **Revue mapping** : acceptation/remplacement/retrait par ligne, actions de lot, recalcul live score et taux d’équivalence.
+- **Catalogue** : CRUD mock des matières cibles, alias, import/export CSV, fiche cible avec suggestions associées.
+- **Suggestions LLM** : clavier A/R, lot ≥0.90, hot cache configuré.
+- **Paramètres** : seuils, poids, pipeline (lecture seule), thème clair/sombre, rétention.
+- **Audit & logs** : filtrage texte, export CSV.
 
-```bash
-ng build
-```
+Toutes les actions (acceptations, imports mock, alias, paramètres) sont tracées dans le journal d’audit en mémoire.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 🧪 Données mock
 
-## Running unit tests
+Seeder embarqué (`DataStoreService`) :
+- 12 candidats, 20 matières cibles, ~60 matières extraites, mappings multi-méthodes.
+- ~10 suggestions d’alias LLM dont ≥0.9.
+- Tâches, jobs et audit en temps réel.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## 📸 Aperçu des variantes
 
-```bash
-ng test
-```
+Des captures sont générées automatiquement via Playwright lorsque disponible (voir dossier `artifacts/` après exécution des tests UI).
 
-## Running end-to-end tests
+## 📝 Notes
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Frontend seulement (mock API en mémoire).
+- TailwindCSS utilisé via tokens (`@tailwind` + CSS variables) dans `src/styles.css`.
+- Aucun framework d’état externe requis (signals + BehaviorSubject).
